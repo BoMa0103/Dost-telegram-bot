@@ -1,7 +1,6 @@
 <?php
 
-namespace Longman\TelegramBot\Commands\SystemCommands;
-
+namespace App\Telegram\Commands;
 
 use App\Telegram\Handlers\Language\LanguageLocalizeHandler;
 use Longman\TelegramBot\Commands\SystemCommand;

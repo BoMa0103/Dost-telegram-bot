@@ -45,7 +45,7 @@ class DishSender extends TelegramSender
         $categoryId = $data['id'];
         $replyMarkup = $this->getDishesKeyboard($companyId, $categoryId);
         $data = $this->getReplyMarkupData($telegram_id, $message_id, $replyMarkup);
-        Request::editMessageReplyMarkup($data);
+        return Request::editMessageReplyMarkup($data);
     }
 
     private function getReplyMarkupData(int $telegram_id, int $message_id, InlineKeyboard $replyMarkup): array

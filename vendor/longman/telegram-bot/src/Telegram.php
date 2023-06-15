@@ -14,8 +14,6 @@ namespace Longman\TelegramBot;
 defined('TB_BASE_PATH') || define('TB_BASE_PATH', __DIR__);
 defined('TB_BASE_COMMANDS_PATH') || define('TB_BASE_COMMANDS_PATH', TB_BASE_PATH . '/Commands');
 
-use App\Telegram\Handlers\CallbackQuery\CallbackQueryHandler;
-use App\Telegram\Handlers\Commands\GenericMessageCommandHandler;
 use Exception;
 use InvalidArgumentException;
 use Longman\TelegramBot\Commands\AdminCommand;
@@ -599,12 +597,6 @@ class Telegram
         $this->update         = $update;
         $this->last_update_id = $update->getUpdateId();
 
-        // Check callbackQuery
-        if ($update->getCallbackQuery()) {
-            $callback_query = $update->getCallbackQuery();
-            app(CallbackQueryHandler::class)->handle($callback_query);
-        }
-
         if (is_callable($this->update_filter)) {
             $reason = 'Update denied by update_filter';
             try {
@@ -635,11 +627,6 @@ class Telegram
         if ($update_type === 'message') {
             $message = $this->update->getMessage();
             $type    = $message->getType();
-
-            // Check genericmessage
-            if($type === 'text'){
-                app(GenericMessageCommandHandler::class)->handle($update->getMessage());
-            }
 
             // Let's check if the message object has the type field we're looking for...
             $command_tmp = $type === 'command' ? $message->getCommand() : $this->getCommandFromType($type);

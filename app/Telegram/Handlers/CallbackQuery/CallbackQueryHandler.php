@@ -10,7 +10,7 @@ use App\Telegram\Handlers\CompanyHandler;
 use App\Telegram\Handlers\DishHandler;
 use App\Telegram\Handlers\Language\LanguageChangerHandler;
 use App\Telegram\Handlers\Language\LanguageLocalizeHandler;
-use Longman\TelegramBot\Entities\CallbackQuery;
+use Longman\TelegramBot\Commands\SystemCommand;
 
 class CallbackQueryHandler
 {
@@ -24,8 +24,10 @@ class CallbackQueryHandler
         $this->usersService = $usersService;
     }
 
-    public function handle(CallbackQuery $callbackQuery)
+    public function handle(SystemCommand $systemCommand)
     {
+        $callbackQuery = $systemCommand->getCallbackQuery();
+
         app(LanguageLocalizeHandler::class)->handle($callbackQuery->getMessage());
 
         $data = $callbackQuery->getData();
