@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Services\Cart\Repositories\CacheCartRepository;
 use App\Services\Cart\Repositories\CartRepositoryInterface;
-use App\Services\Cart\Repositories\RedisCartRepository;
 use App\Services\Orders\Repositories\EloquentOrderRepository;
 use App\Services\Orders\Repositories\OrderRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;

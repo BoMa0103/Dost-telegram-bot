@@ -4,7 +4,8 @@ namespace App\Telegram\Senders;
 
 class AddDishToCartSender extends TelegramSender
 {
-    public function sendDishNotFound(int $chatId){
+    public function sendDishNotFound(int $chatId)
+    {
         $data = [
             'chat_id' => $chatId,
             'text'    => trans('bots.dishNotFound'),

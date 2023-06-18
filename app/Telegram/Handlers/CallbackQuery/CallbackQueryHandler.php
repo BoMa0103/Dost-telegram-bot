@@ -3,11 +3,8 @@
 namespace App\Telegram\Handlers\CallbackQuery;
 
 use App\Services\Users\UsersService;
-use App\Telegram\Handlers\AddCartItemHandler;
 use App\Telegram\Handlers\CityChangerHandler;
 use App\Telegram\Handlers\CompanyChangerHandler;
-use App\Telegram\Handlers\CompanyHandler;
-use App\Telegram\Handlers\DishHandler;
 use App\Telegram\Handlers\Language\LanguageChangerHandler;
 use App\Telegram\Handlers\Language\LanguageLocalizeHandler;
 use Longman\TelegramBot\Commands\SystemCommand;
@@ -36,7 +33,7 @@ class CallbackQueryHandler
         switch ($data['type'])
         {
             case 'city':
-                return app(CompanyHandler::class)->handle($callbackQuery);
+                return app(CompanyCallbackHandler::class)->handle($callbackQuery);
             case 'company':
                 return app(DishCategoryCallbackHandler::class)->handle($callbackQuery);
             case 'cat':
@@ -49,6 +46,8 @@ class CallbackQueryHandler
                 return app(CityChangerHandler::class)->handle($callbackQuery);
             case 'language':
                 return app(LanguageChangerHandler::class)->handle($callbackQuery);
+            case 'clearCart':
+                return app(ClearCartCallbackHandler::class)->handle($callbackQuery);
             default:
         }
     }

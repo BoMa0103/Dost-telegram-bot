@@ -3,9 +3,8 @@
 namespace App\Services\Cart\Repositories;
 
 
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 use App\Services\Cart\DTO\CartDTO;
-use Longman\TelegramBot\Request;
 
 class CacheCartRepository implements CartRepositoryInterface
 {
@@ -68,7 +67,7 @@ class CacheCartRepository implements CartRepositoryInterface
      */
     private function get(string $key): ?array
     {
-        $data = \Cache::get($this->generateCartId($key));
+        $data = Cache::get($this->generateCartId($key));
         return json_decode($data, true);
     }
 
@@ -81,7 +80,7 @@ class CacheCartRepository implements CartRepositoryInterface
         if (is_array($data)) {
             $data = json_encode($data);
         }
-        \Cache::put($this->generateCartId($key), $data);
+        Cache::put($this->generateCartId($key), $data);
     }
 
     /**

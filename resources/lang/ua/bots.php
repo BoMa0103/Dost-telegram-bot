@@ -38,4 +38,7 @@ return [
     'yes' => 'Так',
     'no' => 'Ні',
     'languageSuccessfullyChanged' => 'Мова успішно змінена',
+    'clearCart' => 'Звільнити кошик',
+    'cartClearSuccessful' => 'Кошик було успішно звільнено',
+    'stopAcceptOrders' => 'На жаль, ця компанія призупинила прийом замовлень',
 ];

@@ -38,4 +38,7 @@ return [
     'yes' => 'Да',
     'no' => 'Нет',
     'languageSuccessfullyChanged' => 'Язык успешно изменён',
+    'clearCart' => 'Очистить корзину',
+    'cartClearSuccessful' => 'Корзина была успешно очищена',
+    'stopAcceptOrders' => 'К сожалению, данная компания приостановила прием заказов',
 ];

@@ -52,6 +52,15 @@ class CartService
      */
     public function addItem(CartDTO $cartDTO, array $item): CartDTO
     {
+        $cartItems = $cartDTO->getItems();
+
+        foreach ($cartItems as $cartItem){
+            if($cartItem->getName() === $item['name']){
+                $cartItem->addCount();
+                $cartDTO->setItems($cartItems);
+                return $this->storeCart($cartDTO);
+            }
+        }
         $cartDTO->addItem($item);
         return $this->storeCart($cartDTO);
     }

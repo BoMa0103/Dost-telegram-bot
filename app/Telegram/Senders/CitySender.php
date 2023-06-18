@@ -5,7 +5,6 @@ namespace App\Telegram\Senders;
 use App\Services\Dots\DotsService;
 use Longman\TelegramBot\Entities\InlineKeyboard;
 
-
 class CitySender extends TelegramSender
 {
 

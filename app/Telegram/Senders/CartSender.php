@@ -4,37 +4,25 @@ namespace App\Telegram\Senders;
 
 use App\Services\Cart\DTO\CartDTO;
 use App\Services\Cart\DTO\CartItemDTO;
-use App\Telegram\Resolvers\TelegramMessageCartResolver;
 use Longman\TelegramBot\Entities\InlineKeyboard;
 use Longman\TelegramBot\Entities\Message;
 
 class CartSender extends TelegramSender
 {
-    /** @var TelegramMessageCartResolver */
-    private $telegramMessageCartResolver;
-
-    public function __construct(
-        TelegramMessageCartResolver $telegramMessageCartResolver,
-    )
+    public function sendCart(int $chatId, CartDTO $cart)
     {
-        $this->telegramMessageCartResolver = $telegramMessageCartResolver;
-    }
-
-    public function sendCart(Message $message){
-        $chatId = $message->getFrom()->getId();
-
-        $cart = $this->telegramMessageCartResolver->resolve($message);
-
         if($this->getCartInfo($cart)){
-            $text = $this->getCartInfo($cart);
+            $data = [
+                'chat_id' => $chatId,
+                'text'    => $this->getCartInfo($cart),
+                'reply_markup' => $this->getClearCartKeyboard(),
+            ];
         } else {
-            $text = trans('bots.cartEmpty');
+            $data = [
+                'chat_id' => $chatId,
+                'text'    => trans('bots.cartEmpty'),
+            ];
         }
-
-        $data = [
-            'chat_id' => $chatId,
-            'text'    => $text,
-        ];
         return $this->sendData($data);
     }
 
@@ -57,7 +45,7 @@ class CartSender extends TelegramSender
     }
 
     /**
-     * @param array $item
+     * @param CartItemDTO $item
      * @return string
      */
     private function generateCartItemMessage(CartItemDTO $item): string
@@ -93,6 +81,15 @@ class CartSender extends TelegramSender
         return $this->sendData($data);
     }
 
+    public function sendCartClearSuccessful(int $chatId)
+    {
+        $data = [
+            'chat_id' => $chatId,
+            'text'    => trans('bots.cartClearSuccessful'),
+        ];
+        return $this->sendData($data);
+    }
+
     public function sendChangeCompanySuccessful(int $chatId)
     {
         $data = [
@@ -109,6 +106,20 @@ class CartSender extends TelegramSender
             'text'    => trans('bots.changeCitySuccessful'),
         ];
         return $this->sendData($data);
+    }
+
+    private function getClearCartKeyboard(): InlineKeyboard
+    {
+        $items = [];
+        $items[] = [[
+            'text' => trans('bots.clearCart'),
+            'callback_data' => '{"type": "clearCart", "value": "yes"}',
+        ]];
+        $keyboard = new InlineKeyboard(...$items);
+        return $keyboard
+            ->setResizeKeyboard(true)
+            ->setOneTimeKeyboard(true)
+            ->setSelective(false);
     }
 
     private function getChangeCompanyApproveKeyboard(string $companyId): InlineKeyboard

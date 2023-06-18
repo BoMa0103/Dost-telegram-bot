@@ -50,7 +50,6 @@ class GenericmessageCommand extends SystemCommand
      */
     public function executeNoDb(): ServerResponse
     {
-
         // Try to execute any deprecated system commands.
         if (self::$execute_deprecated && $deprecated_system_command_response = $this->executeDeprecatedSystemCommand()) {
             return $deprecated_system_command_response;
@@ -67,7 +66,6 @@ class GenericmessageCommand extends SystemCommand
      */
     public function execute(): ServerResponse
     {
-
         // Try to continue any active conversation.
         if ($active_conversation_response = $this->executeActiveConversation()) {
             return $active_conversation_response;

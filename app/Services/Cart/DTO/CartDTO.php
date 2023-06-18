@@ -110,6 +110,14 @@ class CartDTO
     }
 
     /**
+     * @param array $data
+     */
+    public function setItems(array $items)
+    {
+        $this->items = $items;
+    }
+
+    /**
      * @param string $companyId
      * @return void
      */

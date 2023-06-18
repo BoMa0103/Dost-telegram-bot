@@ -21,7 +21,6 @@ class GenericmessageCommand extends SystemCommand
 
     public function execute(): ServerResponse
     {
-
         $return = Telegram::call($this->getUpdate());
         if ($return instanceof ServerResponse) {
             return $return;

@@ -9,7 +9,6 @@ use App\Services\Dots\DTO\OrderDTO;
 use App\Services\Orders\Repositories\OrderRepositoryInterface;
 use App\Telegram\Senders\MessageSender;
 use Longman\TelegramBot\Entities\Message;
-use Longman\TelegramBot\Request;
 
 class CreateOrderHandler
 {
@@ -21,6 +20,7 @@ class CreateOrderHandler
     /** @var MessageSender */
     private $messageSender;
     private const NO_WORKING_TIME_MESSAGE = 'The company does not work at the time selected in the order';
+    private const STOP_ACCEPT_ORDERS_MESSAGE = 'Unfortunately, this company suspended the acceptance of orders.';
 
     public function __construct(
         DotsService $dotsService,
@@ -56,6 +56,10 @@ class CreateOrderHandler
         }
         if($orderData['message'] == self::NO_WORKING_TIME_MESSAGE){
             $this->messageSender->send($message->getChat()->getId(), trans('bots.noWorkingTime'));
+            return false;
+        }
+        if($orderData['message'] == self::STOP_ACCEPT_ORDERS_MESSAGE){
+            $this->messageSender->send($message->getChat()->getId(), trans('bots.stopAcceptOrders'));
             return false;
         }
     }

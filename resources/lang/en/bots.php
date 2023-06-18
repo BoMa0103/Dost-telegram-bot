@@ -38,4 +38,7 @@ return [
     'yes' => 'Yes',
     'no' => 'No',
     'languageSuccessfullyChanged' => 'Language successfully changed',
+    'clearCart' => 'Clear cart',
+    'cartClearSuccessful' => 'Cart has been cleared successfully',
+    'stopAcceptOrders' => 'Unfortunately, this company suspended the acceptance of orders',
 ];

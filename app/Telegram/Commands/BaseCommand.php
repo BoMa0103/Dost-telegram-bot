@@ -17,6 +17,4 @@ class BaseCommand extends SystemCommand
         parent::__construct($telegram, $update);
         app(LanguageLocalizeHandler::class)->handle($this->getMessage());
     }
-
-
 }

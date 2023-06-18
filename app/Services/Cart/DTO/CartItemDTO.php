@@ -77,12 +77,18 @@ class CartItemDTO
         return $this->price;
     }
 
+
     /**
      * @return int
      */
     public function getCount(): int
     {
         return $this->count;
+    }
+
+    public function addCount(): int
+    {
+        return $this->count++;
     }
 
 }

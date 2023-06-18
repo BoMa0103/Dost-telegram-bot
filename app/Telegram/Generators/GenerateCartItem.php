@@ -5,7 +5,7 @@
  * @author    Egor Gerasimchuk <egor@mister.am>
  */
 
-namespace App\Services\Telegram\Generators;
+namespace App\Telegram\Generators;
 
 
 use App\Services\Dots\DotsService;
