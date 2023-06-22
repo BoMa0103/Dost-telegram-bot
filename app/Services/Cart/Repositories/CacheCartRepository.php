@@ -46,6 +46,40 @@ class CacheCartRepository implements CartRepositoryInterface
     /**
      * @param CartDTO $cartDTO
      */
+    public function clearCompanyAddress(CartDTO $cartDTO)
+    {
+        $cartDTO->clearCompanyAddress();
+        $this->store($cartDTO);
+    }
+
+    /**
+     * @param CartDTO $cartDTO
+     */
+    public function clearDeliveryType(CartDTO $cartDTO)
+    {
+        $cartDTO->clearDeliveryType();
+        $this->store($cartDTO);
+    }
+    /**
+     * @param CartDTO $cartDTO
+     */
+    public function clearDeliveryAddressStreet(CartDTO $cartDTO)
+    {
+        $cartDTO->clearDeliveryAddressStreet();
+        $this->store($cartDTO);
+    }
+    /**
+     * @param CartDTO $cartDTO
+     */
+    public function clearDeliveryAddressHouse(CartDTO $cartDTO)
+    {
+        $cartDTO->clearDeliveryAddressHouse();
+        $this->store($cartDTO);
+    }
+
+    /**
+     * @param CartDTO $cartDTO
+     */
     public function clearCity(CartDTO $cartDTO)
     {
         $cartDTO->clearCity();

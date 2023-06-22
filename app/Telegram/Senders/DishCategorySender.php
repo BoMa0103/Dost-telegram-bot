@@ -9,14 +9,10 @@ use Longman\TelegramBot\Request;
 class DishCategorySender extends TelegramSender
 {
 
-    /** @var DotsService */
-    protected $dotsService;
-
     public function __construct(
-        DotsService $dotsService
+        private readonly DotsService $dotsService
     )
     {
-        $this->dotsService = $dotsService;
     }
 
     public function send(int $chatId, string $companyId)

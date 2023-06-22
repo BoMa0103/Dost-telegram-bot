@@ -4,18 +4,15 @@ namespace App\Telegram\Handlers\Message;
 
 use App\Services\Cart\CartService;
 use App\Telegram\Resolvers\TelegramMessageCartResolver;
-use App\Telegram\Senders\CartSender;
-use App\Telegram\Senders\DishCategorySender;
+use App\Telegram\Senders\RequestAddressSender;
 use Longman\TelegramBot\Entities\Message;
 
-class DishCategoryMessageHandler
+class StreetAddressHandler
 {
-
     public function __construct(
-        private readonly DishCategorySender $dishCategorySender,
-        private readonly CartSender $cartSender,
         private readonly TelegramMessageCartResolver $telegramMessageCartResolver,
         private readonly CartService $cartService,
+        private readonly RequestAddressSender $requestAddressSender,
     )
     {
     }
@@ -24,9 +21,8 @@ class DishCategoryMessageHandler
     {
         $chatId = $message->getChat()->getId();
         $cart = $this->telegramMessageCartResolver->resolve($message);
-        $companyId = $cart->getCompanyId();
+        $this->cartService->setDeliveryAddressStreet($cart, $message->getText());
 
-        return $this->dishCategorySender->send($chatId, $companyId);
+        return $this->requestAddressSender->sendHouse($chatId);
     }
-
 }

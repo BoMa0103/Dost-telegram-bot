@@ -11,26 +11,13 @@ use Longman\TelegramBot\Commands\SystemCommand;
 
 class StartCommandHandler
 {
-    /** @var CreateTelegramUserHandler  */
-    private $createTelegramUserHandler;
-    /** @var CitySender */
-    private $citySender;
-    /** @var TelegramMenuSender */
-    private $telegramMenuSender;
-    /** @var RequestPhoneSender */
-    private $requestPhoneSender;
-
     public function __construct(
-        CreateTelegramUserHandler $createTelegramUserHandler,
-        CitySender $citySender,
-        TelegramMenuSender $telegramMenuSender,
-        RequestPhoneSender $requestPhoneSender
+        private readonly CreateTelegramUserHandler $createTelegramUserHandler,
+        private readonly CitySender $citySender,
+        private readonly TelegramMenuSender $telegramMenuSender,
+        private readonly RequestPhoneSender $requestPhoneSender
     )
     {
-        $this->createTelegramUserHandler = $createTelegramUserHandler;
-        $this->citySender = $citySender;
-        $this->telegramMenuSender = $telegramMenuSender;
-        $this->requestPhoneSender = $requestPhoneSender;
     }
 
     public function handle(SystemCommand $systemCommand)

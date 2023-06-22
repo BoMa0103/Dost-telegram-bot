@@ -8,17 +8,10 @@ use App\Services\Dots\Resolvers\DishByIdResolver;
 class DotsService
 {
 
-    /** @var DotsProvider */
-    private $dotsProvider;
-    /** @var DishByIdResolver */
-    private $dishByIdResolver;
-
     public function __construct(
-        DotsProvider $dotsProvider,
-        DishByIdResolver $dishByIdResolver
+        private readonly DotsProvider $dotsProvider,
+        private readonly DishByIdResolver $dishByIdResolver
     ) {
-        $this->dotsProvider = $dotsProvider;
-        $this->dishByIdResolver = $dishByIdResolver;
     }
 
     /**
@@ -52,6 +45,14 @@ class DotsService
     public function getCompanyInfo(string $companyId): array
     {
         return $this->dotsProvider->getCompanyInfo($companyId);
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrderInfo(string $orderId): array
+    {
+        return $this->dotsProvider->getOrderInfo($orderId);
     }
 
     /**

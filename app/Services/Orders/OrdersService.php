@@ -11,18 +11,11 @@ use Longman\TelegramBot\Entities\Message;
 class OrdersService
 {
 
-    /** @var CreateOrderHandler */
-    private $createOrderHandler;
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
     public function __construct(
-        CreateOrderHandler $createOrderHandler,
-        OrderRepositoryInterface $orderRepository
+        private readonly CreateOrderHandler $createOrderHandler,
+        private readonly OrderRepositoryInterface $orderRepository
     )
     {
-        $this->createOrderHandler = $createOrderHandler;
-        $this->orderRepository = $orderRepository;
     }
 
     /**

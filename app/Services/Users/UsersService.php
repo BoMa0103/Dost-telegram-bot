@@ -12,22 +12,12 @@ use Illuminate\Database\Eloquent\Collection;
 class UsersService
 {
 
-    /** @var CreateUserHandler */
-    private $createUserHandler;
-    /** @var UpdateUserHandler */
-    private $updateUserHandler;
-    /** @var UserRepositoryInterface */
-    private $userRepository;
-
     public function __construct(
-        CreateUserHandler $createUserHandler,
-        UpdateUserHandler $updateUserHandler,
-        UserRepositoryInterface $userRepository
+        private readonly CreateUserHandler $createUserHandler,
+        private readonly UpdateUserHandler $updateUserHandler,
+        private readonly UserRepositoryInterface $userRepository
     )
     {
-        $this->createUserHandler = $createUserHandler;
-        $this->updateUserHandler = $updateUserHandler;
-        $this->userRepository = $userRepository;
     }
 
     /**

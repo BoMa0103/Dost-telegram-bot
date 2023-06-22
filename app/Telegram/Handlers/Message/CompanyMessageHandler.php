@@ -9,18 +9,11 @@ use Longman\TelegramBot\Entities\Message;
 
 class CompanyMessageHandler
 {
-    /** @var CompanySender */
-    private $companySender;
-    /** @var TelegramMessageCartResolver */
-    private $telegramMessageCartResolver;
-
     public function __construct(
-        CompanySender $companySender,
-        TelegramMessageCartResolver $telegramMessageCartResolver,
+        private readonly  CompanySender $companySender,
+        private readonly TelegramMessageCartResolver $telegramMessageCartResolver,
     )
     {
-        $this->companySender = $companySender;
-        $this->telegramMessageCartResolver = $telegramMessageCartResolver;
     }
 
     public function handle(Message $message)

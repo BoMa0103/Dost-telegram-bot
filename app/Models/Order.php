@@ -29,6 +29,7 @@ class Order extends Model
         'user_id',
         'items',
         'company_id',
+        'order_id',
         'locations',
         'address',
         'userName',

@@ -13,15 +13,10 @@ use Longman\TelegramBot\Entities\Message;
 
 class GenerateCartItem
 {
-
-    /** @var DotsService */
-    private $dotsService;
-
     public function __construct(
-        DotsService $dotsService
+        private readonly DotsService $dotsService
     )
     {
-        $this->dotsService = $dotsService;
     }
 
     public function generate(Message $message)

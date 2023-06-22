@@ -12,22 +12,12 @@ use Illuminate\Database\Eloquent\Collection;
 class SendAdminOrderMessageHandler
 {
 
-    /** @var OrderMessageGenerator */
-    private $orderMessageGenerator;
-    /** @var UsersService */
-    private $usersService;
-    /** @var SendMessageHandler */
-    private $sendMessageHandler;
-
     public function __construct(
-        OrderMessageGenerator $orderMessageGenerator,
-        UsersService $usersService,
-        SendMessageHandler $sendMessageHandler
+        private readonly OrderMessageGenerator $orderMessageGenerator,
+        private readonly UsersService $usersService,
+        private readonly SendMessageHandler $sendMessageHandler
     )
     {
-        $this->orderMessageGenerator = $orderMessageGenerator;
-        $this->usersService = $usersService;
-        $this->sendMessageHandler = $sendMessageHandler;
     }
 
     public function handle(Order $order)

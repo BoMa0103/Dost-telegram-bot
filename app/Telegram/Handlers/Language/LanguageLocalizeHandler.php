@@ -8,14 +8,11 @@ use Longman\TelegramBot\Request;
 
 class LanguageLocalizeHandler
 {
-    /** @var UsersService */
-    private $usersService;
 
     public function __construct(
-        UsersService $usersService,
+        private readonly UsersService $usersService,
     )
     {
-        $this->usersService = $usersService;
     }
 
     public function handle(Message $message)

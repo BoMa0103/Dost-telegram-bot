@@ -10,26 +10,14 @@ use Longman\TelegramBot\Entities\CallbackQuery;
 
 class DishCategoryCallbackHandler
 {
-    /** @var TelegramMessageCartResolver */
-    private $telegramMessageCartResolver;
-    /** @var DishCategorySender */
-    private $dishCategorySender;
-    /** @var CartSender */
-    private $cartSender;
-    /** @var CartService */
-    private $cartService;
 
     public function __construct(
-        DishCategorySender $dishCategorySender,
-        CartSender $cartSender,
-        TelegramMessageCartResolver $telegramMessageCartResolver,
-        CartService $cartService,
+        private readonly DishCategorySender $dishCategorySender,
+        private readonly CartSender $cartSender,
+        private readonly TelegramMessageCartResolver $telegramMessageCartResolver,
+        private readonly CartService $cartService,
     )
     {
-        $this->dishCategorySender = $dishCategorySender;
-        $this->cartSender = $cartSender;
-        $this->telegramMessageCartResolver = $telegramMessageCartResolver;
-        $this->cartService = $cartService;
     }
 
     public function handle(CallbackQuery $callbackQuery)

@@ -5,20 +5,17 @@ namespace App\Telegram\Handlers\CallbackQuery;
 use App\Services\Users\UsersService;
 use App\Telegram\Handlers\CityChangerHandler;
 use App\Telegram\Handlers\CompanyChangerHandler;
+use App\Telegram\Handlers\CreateTelegramOrderHandler;
 use App\Telegram\Handlers\Language\LanguageChangerHandler;
 use App\Telegram\Handlers\Language\LanguageLocalizeHandler;
 use Longman\TelegramBot\Commands\SystemCommand;
 
 class CallbackQueryHandler
 {
-    /** @var UsersService */
-    private $usersService;
-
     public function __construct(
-        UsersService $usersService,
+        private readonly UsersService $usersService,
     )
     {
-        $this->usersService = $usersService;
     }
 
     public function handle(SystemCommand $systemCommand)
@@ -48,6 +45,16 @@ class CallbackQueryHandler
                 return app(LanguageChangerHandler::class)->handle($callbackQuery);
             case 'clearCart':
                 return app(ClearCartCallbackHandler::class)->handle($callbackQuery);
+            case 'deliveryToDoor':
+                return app(DeliveryToDoorHandler::class)->handle($callbackQuery);
+            case 'deliveryToFlat':
+                return app(DeliveryToFlatHandler::class)->handle($callbackQuery);
+            case 'pickup':
+                return app(PickupHandler::class)->handle($callbackQuery);
+            case 'address':
+                return app(CreateTelegramOrderHandler::class)->handle($callbackQuery);
+            case 'status':
+                return app(CheckOrderStatusHandler::class)->handle($callbackQuery);
             default:
         }
     }

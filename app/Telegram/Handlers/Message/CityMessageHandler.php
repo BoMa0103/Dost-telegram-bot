@@ -7,14 +7,11 @@ use Longman\TelegramBot\Entities\Message;
 
 class CityMessageHandler
 {
-    /** @var CitySender */
-    private $citySender;
 
     public function __construct(
-        CitySender $citySender,
+        private readonly CitySender $citySender,
     )
     {
-        $this->citySender = $citySender;
     }
 
     public function handle(Message $message)

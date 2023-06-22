@@ -9,22 +9,12 @@ use Longman\TelegramBot\Entities\CallbackQuery;
 
 class CompanyChangerHandler
 {
-    /** @var CartSender */
-    private $cartSender;
-    /** @var CartRepositoryInterface */
-    private $cartRepository;
-    /** @var TelegramMessageCartResolver */
-    private $telegramMessageCartResolver;
-
     public function __construct(
-        CartSender $cartSender,
-        CartRepositoryInterface $cartRepository,
-        TelegramMessageCartResolver $telegramMessageCartResolver,
+        private readonly CartSender $cartSender,
+        private readonly CartRepositoryInterface $cartRepository,
+        private readonly TelegramMessageCartResolver $telegramMessageCartResolver,
     )
     {
-        $this->cartSender = $cartSender;
-        $this->cartRepository = $cartRepository;
-        $this->telegramMessageCartResolver = $telegramMessageCartResolver;
     }
 
     public function handle(CallbackQuery $callbackQuery)

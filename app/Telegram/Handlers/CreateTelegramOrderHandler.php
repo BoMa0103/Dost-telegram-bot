@@ -8,45 +8,33 @@ use App\Services\Dots\DotsService;
 use App\Telegram\Handlers\Senders\SendAdminOrderMessageHandler;
 use App\Telegram\Resolvers\TelegramMessageCartResolver;
 use App\Telegram\Senders\MessageSender;
+use App\Telegram\Senders\SuccessMessageToUser;
+use Longman\TelegramBot\Entities\CallbackQuery;
 use Longman\TelegramBot\Entities\Message;
 
 class CreateTelegramOrderHandler
 {
-
-    /** @var TelegramMessageCartResolver */
-    private $telegramMessageCartResolver;
-    /** @var SendAdminOrderMessageHandler */
-    private $sendAdminOrderMessageHandler;
-    /** @var DotsService */
-    private $dotsService;
-    /** @var MessageSender */
-    private $messageSender;
-    /** @var CartService */
-    private $cartService;
-
     public function __construct(
-        TelegramMessageCartResolver $telegramMessageCartResolver,
-        SendAdminOrderMessageHandler $sendAdminOrderMessageHandler,
-        MessageSender $messageSender,
-        CartService $cartService,
-        DotsService $dotsService
+        private readonly TelegramMessageCartResolver $telegramMessageCartResolver,
+        private readonly SendAdminOrderMessageHandler $sendAdminOrderMessageHandler,
+        private readonly MessageSender $messageSender,
+        private readonly CartService $cartService,
+        private readonly SuccessMessageToUser $successMessageToUser,
     )
     {
-        $this->telegramMessageCartResolver = $telegramMessageCartResolver;
-        $this->sendAdminOrderMessageHandler = $sendAdminOrderMessageHandler;
-        $this->dotsService = $dotsService;
-        $this->messageSender = $messageSender;
-        $this->cartService = $cartService;
     }
 
     /**
-     * @param Message $message
+     * @param CallbackQuery $callbackQuery
      * @return Message
      */
-    public function handle(Message $message)
+    public function handle(CallbackQuery $callbackQuery)
     {
+        $message = $callbackQuery->getMessage();
+        $data = json_decode($callbackQuery->getData(), true);
 
         $cart = $this->telegramMessageCartResolver->resolve($message);
+        $cart->setCompanyAddressId($data['id']);
 
         if ($cart->getItems() == []) {
             return $this->sendCartEmptyMessageToUser($message);
@@ -62,6 +50,31 @@ class CreateTelegramOrderHandler
 
         return $this->sendSuccessMessageToUser($message, $order);
     }
+
+    /**
+     * @param Message $message
+     * @return Message
+     */
+    public function handleMessage(Message $message)
+    {
+        $cart = $this->telegramMessageCartResolver->resolve($message);
+        $this->cartService->setDeliveryAddressHouse($cart, $message->getText());
+
+        if ($cart->getItems() == []) {
+            return $this->sendCartEmptyMessageToUser($message);
+        }
+
+        $order = $this->cartService->createOrder($message, $cart);
+
+        if(!$order){
+            return $this->sendOrderNotCreate($message);
+        }
+
+        $this->sendAdminOrderMessageHandler->handle($order);
+
+        return $this->sendSuccessMessageToUser($message, $order);
+    }
+
 
     /**
      * @param Message $message
@@ -91,7 +104,7 @@ class CreateTelegramOrderHandler
     {
         $text = $this->generateSuccessMessage($order);
 
-        return $this->messageSender->send($message->getChat()->getId(), $text);
+        return $this->successMessageToUser->send($message->getChat()->getId(), $text, $order['order_id']);
     }
 
     /**
@@ -100,7 +113,7 @@ class CreateTelegramOrderHandler
      */
     private function generateSuccessMessage(Order $order): string
     {
-        $message = trans('bots.yourOrderSuccessfullyCreated');
+        $message = trans('bots.yourOrderSuccessfullySend');
         if ($order->paymentUrl) {
             $message .= ' ';
             $message .= sprintf(trans('bots.payItOnline'), $order->paymentUrl);

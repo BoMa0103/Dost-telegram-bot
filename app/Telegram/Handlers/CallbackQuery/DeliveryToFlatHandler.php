@@ -2,29 +2,32 @@
 
 namespace App\Telegram\Handlers\CallbackQuery;
 
-use App\Services\Cart\Repositories\CartRepositoryInterface;
+use App\Services\Cart\CartService;
+use App\Services\Dots\DTO\OrderDTO;
 use App\Telegram\Resolvers\TelegramMessageCartResolver;
-use App\Telegram\Senders\CartSender;
+use App\Telegram\Senders\RequestAddressSender;
 use Longman\TelegramBot\Entities\CallbackQuery;
 
-class ClearCartCallbackHandler
+class DeliveryToFlatHandler
 {
     public function __construct(
-        private readonly CartSender $cartSender,
-        private readonly CartRepositoryInterface $cartRepository,
+        private readonly RequestAddressSender $requestAddressSender,
         private readonly TelegramMessageCartResolver $telegramMessageCartResolver,
+        private readonly CartService $cartService,
     )
     {
     }
 
     public function handle(CallbackQuery $callbackQuery)
     {
-        $chatId = $callbackQuery->getMessage()->getChat()->getId();
         $message = $callbackQuery->getMessage();
 
         $cart = $this->telegramMessageCartResolver->resolve($message);
 
-        $this->cartRepository->clearItems($cart);
-        return $this->cartSender->sendCartClearSuccessful($chatId);
+        $this->cartService->setDeliveryType($cart, OrderDTO::DELIVERY_TO_FLAT);
+
+        $chatId = $message->getChat()->getId();
+
+        return $this->requestAddressSender->sendStreet($chatId);
     }
 }

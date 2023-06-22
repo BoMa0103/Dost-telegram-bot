@@ -11,22 +11,13 @@ use Longman\TelegramBot\Entities\Message;
 
 class TelegramMessageCartResolver
 {
-    /** @var CartKeyGenerator */
-    private $cartKeyGenerator;
-    /** @var UsersService */
-    private $usersService;
-    /** @var CartService */
-    private $cartService;
 
     public function __construct(
-        CartKeyGenerator $cartKeyGenerator,
-        UsersService $usersService,
-        CartService $cartService
+        private readonly CartKeyGenerator $cartKeyGenerator,
+        private readonly UsersService $usersService,
+        private readonly CartService $cartService
     )
     {
-        $this->cartKeyGenerator = $cartKeyGenerator;
-        $this->usersService = $usersService;
-        $this->cartService = $cartService;
     }
 
     /**

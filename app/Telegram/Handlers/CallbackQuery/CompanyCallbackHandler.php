@@ -11,26 +11,14 @@ use Longman\TelegramBot\Entities\Message;
 
 class CompanyCallbackHandler
 {
-    /** @var CompanySender */
-    private $companySender;
-    /** @var TelegramMessageCartResolver */
-    private $telegramMessageCartResolver;
-    /** @var CartService */
-    private $cartService;
-    /** @var CartSender */
-    private $cartSender;
 
     public function __construct(
-        CompanySender $companySender,
-        TelegramMessageCartResolver $telegramMessageCartResolver,
-        CartService $cartService,
-        CartSender $cartSender,
+        private readonly CompanySender $companySender,
+        private readonly TelegramMessageCartResolver $telegramMessageCartResolver,
+        private readonly CartService $cartService,
+        private readonly  CartSender $cartSender,
     )
     {
-        $this->companySender = $companySender;
-        $this->telegramMessageCartResolver = $telegramMessageCartResolver;
-        $this->cartService = $cartService;
-        $this->cartSender = $cartSender;
     }
 
     public function handle(CallbackQuery $callbackQuery)
@@ -48,16 +36,6 @@ class CompanyCallbackHandler
             return $this->cartSender->sendRequireChangeCity($chatId);
         }
         $this->cartService->setCityId($cart, $cityId);
-
-        return $this->companySender->send($chatId, $cityId);
-    }
-
-    public function handleMessage(Message $message)
-    {
-        $cart = $this->telegramMessageCartResolver->resolve($message);
-
-        $cityId = $cart->getCityId();
-        $chatId = $message->getChat()->getId();
 
         return $this->companySender->send($chatId, $cityId);
     }

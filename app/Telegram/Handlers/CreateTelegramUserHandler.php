@@ -8,13 +8,10 @@ use Longman\TelegramBot\Entities\Message;
 
 class CreateTelegramUserHandler
 {
-    /** @var UsersService */
-    private $usersService;
     public function __construct(
-        UsersService $usersService
+        private readonly UsersService $usersService
     )
     {
-        $this->usersService = $usersService;
     }
 
     /**

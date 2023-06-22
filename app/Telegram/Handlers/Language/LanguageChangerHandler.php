@@ -9,24 +9,13 @@ use Longman\TelegramBot\Entities\CallbackQuery;
 
 class LanguageChangerHandler
 {
-    /** @var UsersService */
-    private $usersService;
-
-    /** @var LanguageSender */
-    private $languageSender;
-
-    /** @var TelegramMenuSender */
-    private $telegramMenuSender;
 
     public function __construct(
-        UsersService $usersService,
-        LanguageSender $languageSender,
-        TelegramMenuSender $telegramMenuSender,
+        private readonly UsersService $usersService,
+        private readonly LanguageSender $languageSender,
+        private readonly TelegramMenuSender $telegramMenuSender,
     )
     {
-        $this->usersService = $usersService;
-        $this->languageSender = $languageSender;
-        $this->telegramMenuSender = $telegramMenuSender;
     }
 
     public function handle(CallbackQuery $callbackQuery)

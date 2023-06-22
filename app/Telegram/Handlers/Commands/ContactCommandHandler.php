@@ -11,25 +11,13 @@ use Longman\TelegramBot\Entities\ServerResponse;
 
 class ContactCommandHandler extends StartCommandHandler
 {
-    /** @var UsersService */
-    private $usersService;
-    /** @var ContactSender */
-    private $contactSender;
-    /** @var CitySender */
-    private $citySender;
-    /** @var TelegramMenuSender */
-    private $telegramMenuSender;
     public function __construct(
-        UsersService $usersService,
-        ContactSender $contactSender,
-        CitySender $citySender,
-        TelegramMenuSender $telegramMenuSender,
+        private readonly UsersService $usersService,
+        private readonly ContactSender $contactSender,
+        private readonly CitySender $citySender,
+        private readonly TelegramMenuSender $telegramMenuSender,
     )
     {
-        $this->usersService = $usersService;
-        $this->contactSender = $contactSender;
-        $this->citySender = $citySender;
-        $this->telegramMenuSender = $telegramMenuSender;
     }
 
     public function handle(SystemCommand $systemCommand): ?ServerResponse

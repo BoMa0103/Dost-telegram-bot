@@ -11,18 +11,11 @@ use Longman\TelegramBot\Entities\Message;
 class CartService
 {
 
-    /** @var CreateOrderHandler */
-    private $createOrderHandler;
-    /** @var CartRepositoryInterface */
-    private $cartRepository;
-
     public function __construct(
-        CreateOrderHandler $createOrderHandler,
-        CartRepositoryInterface $cartRepository
+        private readonly CreateOrderHandler $createOrderHandler,
+        private readonly CartRepositoryInterface $cartRepository
     )
     {
-        $this->createOrderHandler = $createOrderHandler;
-        $this->cartRepository = $cartRepository;
     }
 
     public function getOrCreateCart(string $key, array $data = []): CartDTO
@@ -91,6 +84,50 @@ class CartService
     public function setCompanyId(CartDTO $cartDTO, string $companyId): CartDTO
     {
         $cartDTO->setCompanyId($companyId);
+        return $this->storeCart($cartDTO);
+    }
+
+    /**
+     * @param CartDTO $cartDTO
+     * @param string $companyAddressId
+     * @return CartDTO
+     */
+    public function setCompanyAddressId(CartDTO $cartDTO, string $companyAddressId): CartDTO
+    {
+        $cartDTO->setCompanyAddressId($companyAddressId);
+        return $this->storeCart($cartDTO);
+    }
+
+    /**
+     * @param CartDTO $cartDTO
+     * @param int $deliveryType
+     * @return CartDTO
+     */
+    public function setDeliveryType(CartDTO $cartDTO, int $deliveryType): CartDTO
+    {
+        $cartDTO->setDeliveryType($deliveryType);
+        return $this->storeCart($cartDTO);
+    }
+
+    /**
+     * @param CartDTO $cartDTO
+     * @param string $deliveryAddressStreet
+     * @return CartDTO
+     */
+    public function setDeliveryAddressStreet(CartDTO $cartDTO, string $deliveryAddressStreet): CartDTO
+    {
+        $cartDTO->setDeliveryAddressStreet($deliveryAddressStreet);
+        return $this->storeCart($cartDTO);
+    }
+
+    /**
+     * @param CartDTO $cartDTO
+     * @param string $deliveryAddressHouse
+     * @return CartDTO
+     */
+    public function setDeliveryAddressHouse(CartDTO $cartDTO, string $deliveryAddressHouse): CartDTO
+    {
+        $cartDTO->setDeliveryAddressHouse($deliveryAddressHouse);
         return $this->storeCart($cartDTO);
     }
 

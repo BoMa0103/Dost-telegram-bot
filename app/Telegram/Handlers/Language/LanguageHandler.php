@@ -8,14 +8,10 @@ use Longman\TelegramBot\Entities\Message;
 
 class LanguageHandler
 {
-    /** @var LanguageSender */
-    private $languageSender;
-
     public function __construct(
-        LanguageSender $languageSender,
+        private readonly LanguageSender $languageSender,
     )
     {
-        $this->languageSender = $languageSender;
     }
 
     public function handle(Message $message)

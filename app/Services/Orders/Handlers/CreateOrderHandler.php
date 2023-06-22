@@ -8,28 +8,20 @@ use App\Services\Dots\DotsService;
 use App\Services\Dots\DTO\OrderDTO;
 use App\Services\Orders\Repositories\OrderRepositoryInterface;
 use App\Telegram\Senders\MessageSender;
+use Illuminate\Support\Facades\Log;
 use Longman\TelegramBot\Entities\Message;
 
 class CreateOrderHandler
 {
 
-    /** @var DotsService */
-    private $dotsService;
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-    /** @var MessageSender */
-    private $messageSender;
     private const NO_WORKING_TIME_MESSAGE = 'The company does not work at the time selected in the order';
     private const STOP_ACCEPT_ORDERS_MESSAGE = 'Unfortunately, this company suspended the acceptance of orders.';
 
     public function __construct(
-        DotsService $dotsService,
-        OrderRepositoryInterface $orderRepository,
-        MessageSender $messageSender,
+        private readonly DotsService $dotsService,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly MessageSender $messageSender,
     ) {
-        $this->dotsService = $dotsService;
-        $this->orderRepository = $orderRepository;
-        $this->messageSender = $messageSender;
     }
 
     /**
@@ -62,6 +54,7 @@ class CreateOrderHandler
             $this->messageSender->send($message->getChat()->getId(), trans('bots.stopAcceptOrders'));
             return false;
         }
+        Log::warning('Unknown order data: ', $orderData);
     }
 
     /**
@@ -71,14 +64,19 @@ class CreateOrderHandler
     private function generateDotsOrderData(CartDTO $cartDTO): array
     {
         $companyId = $cartDTO->getCompanyId();
+        $companyAddressId = $cartDTO->getCompanyAddressId();
+
+        Log::info('Company address: ' . $companyAddressId);
 
         return [
             'cityId' => $cartDTO->getCityId(),
             'companyId' => $companyId,
-            'companyAddressId' => '',
+            'deliveryAddressStreet' => $cartDTO->getDeliveryAddressStreet(),
+            'deliveryAddressHouse'=> $cartDTO->getDeliveryAddressHouse(),
+            'companyAddressId' => $companyAddressId,
             'userName' => $cartDTO->getUser()->getName(),
             'userPhone' => $cartDTO->getUser()->getPhone(),
-            'deliveryType' => OrderDTO::DELIVERY_PICKUP,
+            'deliveryType' => $cartDTO->getDeliveryType(),
             'deliveryTime' => OrderDTO::DELIVERY_TIME_FASTEST,
             'paymentType' => OrderDTO::PAYMENT_ONLINE,
             'cartItems' => $this->generateDotsOrderCartData($cartDTO),
@@ -113,11 +111,16 @@ class CreateOrderHandler
 
         $orderId = $dotsOrderData['id'];
 
+        $data['order_id'] = $orderId;
+
         $paymentData = $this->dotsService->getOnlinePaymentData($orderId);
 
         if ($paymentData && $paymentData['onlinePayment'] && $paymentData['checkoutUrl']) {
             $data['paymentUrl'] = $paymentData['checkoutUrl'];
         }
+
+        Log::info("Order data: ", $data);
+
         return $data;
     }
 
