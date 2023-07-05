@@ -11,4 +11,9 @@
 <p>Using Laravel Framework: <a href="https://laravel.com/">https://laravel.com/</a></p>
 <p>Using NGROK: <a href="https://ngrok.com/">https://ngrok.com/</a></p>
 <hr>
+<h3>To deploy the bot, you need to follow these steps:</h3>
+<ul>
+    <li>Get the ngrok url and paste it into the .env file at NGROK_URL = ...</li>
+    <li>Open the {YOUR_NGROK_URL}/api/setwebhook route to register the webhook with the new url</li>
+</ul>
 <p align="center"><em>Feel free to reach out with any questions or feedback!</em></p>
