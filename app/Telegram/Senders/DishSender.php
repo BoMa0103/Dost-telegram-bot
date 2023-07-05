@@ -2,10 +2,8 @@
 
 namespace App\Telegram\Senders;
 
-use App\Http\Controllers\Bots\TelegramController;
 use App\Services\Cart\CartService;
 use App\Services\Dots\DotsService;
-use App\Services\Users\UsersService;
 use App\Telegram\Resolvers\TelegramMessageCartResolver;
 use Longman\TelegramBot\Entities\CallbackQuery;
 use Longman\TelegramBot\Entities\InlineKeyboard;

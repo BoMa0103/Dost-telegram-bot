@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/bot/updates', '\App\Http\Controllers\Bots\TelegramController@updates');
+//Route::get('/bot/updates', '\App\Http\Controllers\Bots\TelegramController@updates');
+
+Route::post('/webhook', '\App\Http\Controllers\Bots\WebhookController@updates');
+
+Route::get('/setWebhook', '\App\Http\Controllers\Bots\WebhookController@setWebhook');

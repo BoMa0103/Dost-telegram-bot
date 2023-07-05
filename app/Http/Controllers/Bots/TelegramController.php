@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Bots;
 
 use App\Http\Controllers\Controller;
-use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 
 class TelegramController extends Controller
@@ -22,5 +21,6 @@ class TelegramController extends Controller
     {
         return $this->telegramBot->handleGetUpdates();
     }
+
 
 }
