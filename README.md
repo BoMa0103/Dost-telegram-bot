@@ -11,4 +11,3 @@
 <p>Using Laravel Framework: <a href="https://laravel.com/">https://laravel.com/</a></p>
 <hr>
 <p align="center"><em>Feel free to reach out with any questions or feedback!</em></p>
-
