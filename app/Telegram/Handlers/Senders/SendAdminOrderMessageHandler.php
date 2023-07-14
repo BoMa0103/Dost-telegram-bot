@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class SendAdminOrderMessageHandler
 {
-
     public function __construct(
         private readonly OrderMessageGenerator $orderMessageGenerator,
         private readonly UsersService $usersService,
@@ -45,6 +44,4 @@ class SendAdminOrderMessageHandler
     {
         $this->sendMessageHandler->handle($user->telegram_id, $message);
     }
-
-
 }

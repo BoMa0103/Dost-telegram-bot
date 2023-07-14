@@ -2,9 +2,8 @@
 
 namespace App\Telegram\Handlers\Message;
 
-use App\Services\Cart\CartService;
 use App\Telegram\Resolvers\TelegramMessageCartResolver;
-use App\Telegram\Senders\CompanySender;
+use App\Telegram\Senders\CompanySenders\CompanySender;
 use Longman\TelegramBot\Entities\Message;
 
 class CompanyMessageHandler

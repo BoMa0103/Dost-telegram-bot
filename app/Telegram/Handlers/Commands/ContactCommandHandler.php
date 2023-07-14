@@ -3,13 +3,13 @@
 namespace App\Telegram\Handlers\Commands;
 
 use App\Services\Users\UsersService;
-use App\Telegram\Senders\CitySender;
-use App\Telegram\Senders\ContactSender;
-use App\Telegram\Senders\TelegramMenuSender;
+use App\Telegram\Senders\CitySenders\CitySender;
+use App\Telegram\Senders\MenuSenders\TelegramMenuSender;
+use App\Telegram\Senders\PhoneSenders\ContactSender;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 
-class ContactCommandHandler extends StartCommandHandler
+class ContactCommandHandler
 {
     public function __construct(
         private readonly UsersService $usersService,
@@ -40,4 +40,11 @@ class ContactCommandHandler extends StartCommandHandler
         $this->telegramMenuSender->send($user->telegram_id);
         return $this->citySender->send($user->telegram_id);
     }
+
+//    private function generateUserDTO(string $phoneNumber): UserDTO
+//    {
+//        return UserDTO::fromArray([
+//                'phone' => $phoneNumber,
+//            ]);
+//    }
 }

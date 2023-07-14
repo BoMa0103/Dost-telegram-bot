@@ -2,7 +2,6 @@
 
 namespace App\Telegram\Resolvers;
 
-
 use App\Services\Cart\CartService;
 use App\Services\Cart\DTO\CartDTO;
 use App\Telegram\Generators\CartKeyGenerator;
@@ -11,11 +10,10 @@ use Longman\TelegramBot\Entities\Message;
 
 class TelegramMessageCartResolver
 {
-
     public function __construct(
         private readonly CartKeyGenerator $cartKeyGenerator,
-        private readonly UsersService $usersService,
-        private readonly CartService $cartService
+        private readonly UsersService     $usersService,
+        private readonly CartService      $cartService
     )
     {
     }

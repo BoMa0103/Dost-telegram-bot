@@ -1,18 +1,11 @@
 <?php
-/**
- * Description of OrderMessageGenerator.php
- * @copyright Copyright (c) MISTER.AM, LLC
- * @author    Egor Gerasimchuk <egor@mister.am>
- */
 
 namespace App\Telegram\Generators;
-
 
 use App\Models\Order;
 
 class OrderMessageGenerator
 {
-
     /**
      * @param Order $order
      * @return string

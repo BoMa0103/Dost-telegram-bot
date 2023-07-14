@@ -2,25 +2,24 @@
 
 namespace App\Services\Dots;
 
+use App\Services\Dots\DTO\DotsOrderDTO;
 use App\Services\Dots\Providers\DotsProvider;
-use App\Services\Dots\Resolvers\DishByIdResolver;
 
 class DotsService
 {
 
     public function __construct(
         private readonly DotsProvider $dotsProvider,
-        private readonly DishByIdResolver $dishByIdResolver
     ) {
     }
 
     /**
-     * @param string $name
+     * @param string $id
      * @return array|null
      */
-    public function findDishById(string $id, string $companyId): ?array
+    public function findDishById(string $id): ?array
     {
-        return $this->dishByIdResolver->resolve($id, $companyId);
+        return $this->dotsProvider->getItemInfo($id);
     }
 
     /**
@@ -72,12 +71,12 @@ class DotsService
     }
 
     /**
-     * @param array $data
+     * @param DotsOrderDTO $orderDTO
      * @return array
      */
-    public function makeOrder(array $data): array
+    public function makeOrder(DotsOrderDTO $orderDTO): array
     {
-        return $this->dotsProvider->makeOrder($data);
+        return $this->dotsProvider->makeOrder($orderDTO);
     }
 
 }

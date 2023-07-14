@@ -9,7 +9,7 @@ use App\Telegram\Handlers\DeliveryTypesHandler;
 use App\Telegram\Handlers\Language\LanguageHandler;
 use App\Telegram\Handlers\Language\LanguageLocalizeHandler;
 use App\Telegram\Resolvers\MessageCommandResolver;
-use App\Telegram\Senders\NotFoundMessageSender;
+use App\Telegram\Senders\CommonSenders\NotFoundMessageSender;
 use Longman\TelegramBot\Entities\Message;
 
 class GenericMessageHandler

@@ -2,7 +2,6 @@
 
 namespace App\Telegram\Handlers\Senders;
 
-
 use Longman\TelegramBot\Exception\TelegramException;
 use Longman\TelegramBot\Request;
 

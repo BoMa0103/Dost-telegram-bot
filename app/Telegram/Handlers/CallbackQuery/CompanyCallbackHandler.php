@@ -4,10 +4,9 @@ namespace App\Telegram\Handlers\CallbackQuery;
 
 use App\Services\Cart\CartService;
 use App\Telegram\Resolvers\TelegramMessageCartResolver;
-use App\Telegram\Senders\CartSender;
-use App\Telegram\Senders\CompanySender;
+use App\Telegram\Senders\CartSenders\CartSender;
+use App\Telegram\Senders\CompanySenders\CompanySender;
 use Longman\TelegramBot\Entities\CallbackQuery;
-use Longman\TelegramBot\Entities\Message;
 
 class CompanyCallbackHandler
 {

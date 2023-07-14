@@ -2,12 +2,13 @@
 
 namespace App\Telegram\Handlers\Commands;
 
-use App\Telegram\Senders\CitySender;
-use App\Telegram\Senders\MenuSender;
-use App\Telegram\Senders\RequestPhoneSender;
 use App\Telegram\Handlers\CreateTelegramUserHandler;
-use App\Telegram\Senders\TelegramMenuSender;
+use App\Telegram\Senders\CitySenders\CitySender;
+use App\Telegram\Senders\MenuSender;
+use App\Telegram\Senders\MenuSenders\TelegramMenuSender;
+use App\Telegram\Senders\PhoneSenders\RequestPhoneSender;
 use Longman\TelegramBot\Commands\SystemCommand;
+use Longman\TelegramBot\Entities\ServerResponse;
 
 class StartCommandHandler
 {
@@ -20,7 +21,7 @@ class StartCommandHandler
     {
     }
 
-    public function handle(SystemCommand $systemCommand)
+    public function handle(SystemCommand $systemCommand): ServerResponse
     {
         $user = $this->createTelegramUserHandler->handle($systemCommand->getMessage());
         if (!$user->phone) {

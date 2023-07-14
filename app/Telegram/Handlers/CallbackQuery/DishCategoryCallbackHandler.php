@@ -4,8 +4,8 @@ namespace App\Telegram\Handlers\CallbackQuery;
 
 use App\Services\Cart\CartService;
 use App\Telegram\Resolvers\TelegramMessageCartResolver;
-use App\Telegram\Senders\CartSender;
-use App\Telegram\Senders\DishCategorySender;
+use App\Telegram\Senders\CartSenders\CartSender;
+use App\Telegram\Senders\DishSenders\DishCategorySender;
 use Longman\TelegramBot\Entities\CallbackQuery;
 
 class DishCategoryCallbackHandler

@@ -3,11 +3,9 @@
 namespace App\Telegram\Handlers\CallbackQuery;
 
 use App\Services\Cart\CartService;
-use App\Services\Dots\DotsService;
-use App\Services\Dots\DTO\OrderDTO;
+use App\Services\Dots\DTO\DotsDTO;
 use App\Telegram\Resolvers\TelegramMessageCartResolver;
-use App\Telegram\Senders\CompanyAddressesSender;
-use Illuminate\Support\Facades\Log;
+use App\Telegram\Senders\CompanySenders\CompanyAddressesSender;
 use Longman\TelegramBot\Entities\CallbackQuery;
 
 class PickupHandler
@@ -26,7 +24,7 @@ class PickupHandler
 
         $cart = $this->telegramMessageCartResolver->resolve($message);
 
-        $this->cartService->setDeliveryType($cart, OrderDTO::DELIVERY_PICKUP);
+        $this->cartService->setDeliveryType($cart, DotsDTO::DELIVERY_PICKUP);
 
         $companyId = $cart->getCompanyId();
 

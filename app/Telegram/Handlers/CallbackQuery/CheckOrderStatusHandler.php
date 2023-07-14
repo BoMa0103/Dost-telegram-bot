@@ -3,7 +3,7 @@
 namespace App\Telegram\Handlers\CallbackQuery;
 
 use App\Services\Dots\DotsService;
-use App\Telegram\Senders\OrderInfoSender;
+use App\Telegram\Senders\OrderSenders\OrderInfoSender;
 use Illuminate\Support\Facades\Log;
 use Longman\TelegramBot\Entities\CallbackQuery;
 

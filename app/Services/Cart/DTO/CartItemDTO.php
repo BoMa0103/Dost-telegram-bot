@@ -10,27 +10,13 @@ namespace App\Services\Cart\DTO;
 
 class CartItemDTO
 {
-
-    /** @var string */
-    private $dish_id;
-    /** @var string */
-    private $name;
-    /** @var float */
-    private $price;
-    /** @var int */
-    private $count;
-
     private function __construct(
-        $dish_id,
-        $name,
-        $price,
-        $count
+        private readonly string $dish_id,
+        private readonly string $name,
+        private readonly float $price,
+        private int $count
     )
     {
-        $this->dish_id = $dish_id;
-        $this->name = $name;
-        $this->price = $price;
-        $this->count = $count;
     }
 
     public static function fromArray(array $data)

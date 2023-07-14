@@ -2,7 +2,7 @@
 
 namespace App\Telegram\Handlers;
 
-use App\Telegram\Senders\DeliveryTypesSender;
+use App\Telegram\Senders\OrderSenders\DeliveryTypesSender;
 use Longman\TelegramBot\Entities\Message;
 
 class DeliveryTypesHandler

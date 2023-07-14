@@ -3,9 +3,8 @@
 namespace App\Services\Orders\Repositories;
 
 use App\Models\Order;
-class EloquentOrderRepository implements OrderRepositoryInterface
+class EloquentOrderRepository implements OrderRepository
 {
-
     /**
      * @param int $id
      * @return Order|null

@@ -9,19 +9,16 @@ namespace App\Services\Users\Handlers;
 
 
 use App\Models\User;
-use App\Services\Users\Repositories\UserRepositoryInterface;
+use App\Services\Users\DTO\UserDTO;
+use App\Services\Users\Repositories\UserRepository;
+use Illuminate\Support\Facades\Log;
 
 class UpdateUserHandler
 {
-
-    /** @var UserRepositoryInterface */
-    private $userRepository;
-
     public function __construct(
-        UserRepositoryInterface $userRepository
+        private readonly UserRepository $userRepository
     )
     {
-        $this->userRepository = $userRepository;
     }
 
     /**

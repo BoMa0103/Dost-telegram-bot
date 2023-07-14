@@ -19,33 +19,33 @@ class UsersServiceTest extends TestCase
 
     public function testCreateUser()
     {
-        $data = UserGenerator::generate();
+        $userDTO = UserGenerator::generate();
 
         $userService = $this->getUserService();
 
-        $this->assertNull($userService->findUserByTelegramId($data['telegram_id']));
+        $this->assertNull($userService->findUserByTelegramId($userDTO->getTelegramId()));
 
-        $user = $userService->createUser($data);
+        $user = $userService->createUser($userDTO);
 
         $this->assertNotNull($userService->findUserByTelegramId($user->telegram_id));
     }
 
     public function testUpdateUser()
     {
-        $data = UserGenerator::generate();
+        $userDTO = UserGenerator::generate();
 
         $userService = $this->getUserService();
 
-        $user = $userService->createUser($data);
+        $user = $userService->createUser($userDTO);
 
         $this->assertNotNull($userService->findUserByTelegramId($user->telegram_id));
 
-        $data['name'] = Random::generate(10, 'a-z');
+        $userDTO->setName(Random::generate(10, 'a-z'));
 
-        $this->assertNotEquals($userService->findUserByTelegramId($user->telegram_id)->name, $data['name']);
+        $this->assertNotEquals($userService->findUserByTelegramId($user->telegram_id)->name, $userDTO->getName());
 
-        $user = $userService->updateUser($user, $data);
+        $user = $userService->updateUser($user, $userDTO->toArray());
 
-        $this->assertEquals($userService->findUserByTelegramId($user->telegram_id)->name, $data['name']);
+        $this->assertEquals($userService->findUserByTelegramId($user->telegram_id)->name, $userDTO->getName());
     }
 }

@@ -6,7 +6,7 @@ namespace App\Services\Cart\Repositories;
 use Illuminate\Support\Facades\Cache;
 use App\Services\Cart\DTO\CartDTO;
 
-class CacheCartRepository implements CartRepositoryInterface
+class CacheCartRepository implements CartRepository
 {
 
     const CART_KEY_PREFIX = 'cart-key-';
@@ -46,9 +46,9 @@ class CacheCartRepository implements CartRepositoryInterface
     /**
      * @param CartDTO $cartDTO
      */
-    public function clearCompanyAddress(CartDTO $cartDTO)
+    public function clearCompanyAddressId(CartDTO $cartDTO)
     {
-        $cartDTO->clearCompanyAddress();
+        $cartDTO->clearCompanyAddressId();
         $this->store($cartDTO);
     }
 

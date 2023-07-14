@@ -3,13 +3,12 @@
 namespace App\Telegram\Handlers\Language;
 
 use App\Services\Users\UsersService;
-use App\Telegram\Senders\Language\LanguageSender;
-use App\Telegram\Senders\TelegramMenuSender;
+use App\Telegram\Senders\LanguageSenders\LanguageSender;
+use App\Telegram\Senders\MenuSenders\TelegramMenuSender;
 use Longman\TelegramBot\Entities\CallbackQuery;
 
 class LanguageChangerHandler
 {
-
     public function __construct(
         private readonly UsersService $usersService,
         private readonly LanguageSender $languageSender,
@@ -38,4 +37,10 @@ class LanguageChangerHandler
         $this->languageSender->sendLanguageSuccussfullyChanged($chatId);
         return $this->telegramMenuSender->send($chatId);
     }
+//    private function generateUserDTO(string $answer): UserDTO
+//    {
+//        return UserDTO::fromArray([
+//            'lang' => $answer,
+//        ]);
+//    }
 }

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/bot/updates', '\App\Http\Controllers\Bots\TelegramController@updates');
+Route::get('/bot/updates', '\App\Http\Controllers\Bots\TelegramController@updates');
 
 Route::post('/webhook', '\App\Http\Controllers\Bots\WebhookController@updates');
 

@@ -2,12 +2,10 @@
 
 namespace App\Services\Users\Repositories;
 
-
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
-
-class EloquentUserRepository implements UserRepositoryInterface
+class EloquentUserRepository implements UserRepository
 {
     public function find(int $id): ?User
     {

@@ -7,25 +7,16 @@
 
 namespace App\Services\Cart\DTO;
 
-
 use App\Models\User;
 
 class CartUserDTO
 {
-
-    private $id;
-    private $name;
-    private $phone;
-
     private function __construct(
-        ?int $id,
-        string $name,
-        ?string $phone
+        private ?int $id,
+        private string $name,
+        private ?string $phone
     )
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->phone = $phone;
     }
 
     public static function fromUser(User $user)

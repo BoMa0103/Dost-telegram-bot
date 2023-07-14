@@ -2,7 +2,7 @@
 
 namespace App\Telegram\Handlers\CallbackQuery;
 
-use App\Telegram\Senders\DishSender;
+use App\Telegram\Senders\DishSenders\DishSender;
 use Longman\TelegramBot\Entities\CallbackQuery;
 
 class DishHandler

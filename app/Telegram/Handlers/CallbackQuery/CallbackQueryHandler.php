@@ -27,8 +27,7 @@ class CallbackQueryHandler
         $data = $callbackQuery->getData();
         $data = json_decode($data, true);
 
-        switch ($data['type'])
-        {
+        switch ($data['type']) {
             case 'city':
                 return app(CompanyCallbackHandler::class)->handle($callbackQuery);
             case 'company':

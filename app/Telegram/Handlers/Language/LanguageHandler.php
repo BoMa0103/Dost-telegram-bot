@@ -3,7 +3,7 @@
 namespace App\Telegram\Handlers\Language;
 
 use App\Services\Users\UsersService;
-use App\Telegram\Senders\Language\LanguageSender;
+use App\Telegram\Senders\LanguageSenders\LanguageSender;
 use Longman\TelegramBot\Entities\Message;
 
 class LanguageHandler

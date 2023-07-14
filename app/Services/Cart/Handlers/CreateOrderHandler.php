@@ -4,34 +4,27 @@ namespace App\Services\Cart\Handlers;
 
 use App\Models\Order;
 use App\Services\Cart\DTO\CartDTO;
-use App\Services\Cart\Repositories\CartRepositoryInterface;
+use App\Services\Cart\Repositories\CartRepository;
 use App\Services\Orders\OrdersService;
 use Longman\TelegramBot\Entities\Message;
 
 class CreateOrderHandler
 {
-
-    /** @var OrdersService */
-    private $ordersService;
-    /** @var CartRepositoryInterface */
-    private $cartRepository;
-
     public function __construct(
-        OrdersService $ordersService,
-        CartRepositoryInterface $cartRepository
+        private readonly OrdersService $ordersService,
+        private readonly CartRepository $cartRepository
     )
     {
-        $this->ordersService = $ordersService;
-        $this->cartRepository = $cartRepository;
     }
 
     /**
+     * @param int $chatId
      * @param CartDTO $cartDTO
-     * @return Order
+     * @return Order|null
      */
-    public function handle(Message $message, CartDTO $cartDTO): ?Order
+    public function handle(int $chatId, CartDTO $cartDTO): ?Order
     {
-        $order = $this->ordersService->createOrder($message, $cartDTO);
+        $order = $this->ordersService->createOrder($chatId, $cartDTO);
         $this->cartRepository->clearItems($cartDTO);
         return $order;
     }

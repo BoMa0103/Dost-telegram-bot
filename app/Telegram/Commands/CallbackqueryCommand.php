@@ -3,10 +3,9 @@
 namespace App\Telegram\Commands;
 
 use App\Telegram\Handlers\CallbackQuery\CallbackQueryHandler;
-use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 
-class CallbackqueryCommand extends SystemCommand
+class CallbackqueryCommand extends BaseCommand
 {
     /**
      * @var string

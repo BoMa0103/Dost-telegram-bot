@@ -10,7 +10,6 @@ use Tests\TestCase;
 
 class CartServiceTest extends TestCase
 {
-
     use RefreshDatabase;
 
     private function getCartService(): CartService

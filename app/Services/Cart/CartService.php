@@ -5,7 +5,7 @@ namespace App\Services\Cart;
 use App\Models\Order;
 use App\Services\Cart\DTO\CartDTO;
 use App\Services\Cart\Handlers\CreateOrderHandler;
-use App\Services\Cart\Repositories\CartRepositoryInterface;
+use App\Services\Cart\Repositories\CartRepository;
 use Longman\TelegramBot\Entities\Message;
 
 class CartService
@@ -13,7 +13,7 @@ class CartService
 
     public function __construct(
         private readonly CreateOrderHandler $createOrderHandler,
-        private readonly CartRepositoryInterface $cartRepository
+        private readonly CartRepository $cartRepository
     )
     {
     }
@@ -73,7 +73,7 @@ class CartService
      */
     public function createOrder(Message $message, CartDTO $cartDTO): ?Order
     {
-        return $this->createOrderHandler->handle($message, $cartDTO);
+        return $this->createOrderHandler->handle($message->getChat()->getId(), $cartDTO);
     }
 
     /**

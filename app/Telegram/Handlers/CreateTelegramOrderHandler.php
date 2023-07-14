@@ -4,11 +4,10 @@ namespace App\Telegram\Handlers;
 
 use App\Models\Order;
 use App\Services\Cart\CartService;
-use App\Services\Dots\DotsService;
 use App\Telegram\Handlers\Senders\SendAdminOrderMessageHandler;
 use App\Telegram\Resolvers\TelegramMessageCartResolver;
-use App\Telegram\Senders\MessageSender;
-use App\Telegram\Senders\SuccessMessageToUser;
+use App\Telegram\Senders\CommonSenders\MessageSender;
+use App\Telegram\Senders\OrderSenders\SuccessMessageToUser;
 use Longman\TelegramBot\Entities\CallbackQuery;
 use Longman\TelegramBot\Entities\Message;
 

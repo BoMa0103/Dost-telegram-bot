@@ -1,12 +1,6 @@
 <?php
-/**
- * Description of GenerateCartItem.php
- * @copyright Copyright (c) MISTER.AM, LLC
- * @author    Egor Gerasimchuk <egor@mister.am>
- */
 
 namespace App\Telegram\Generators;
-
 
 use App\Services\Dots\DotsService;
 use Longman\TelegramBot\Entities\Message;

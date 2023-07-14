@@ -2,7 +2,7 @@
 
 namespace App\Telegram\Handlers\Message;
 
-use App\Telegram\Senders\CitySender;
+use App\Telegram\Senders\CitySenders\CitySender;
 use Longman\TelegramBot\Entities\Message;
 
 class CityMessageHandler

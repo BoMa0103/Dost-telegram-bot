@@ -4,17 +4,19 @@ namespace App\Telegram\Handlers\Language;
 
 use App\Services\Users\UsersService;
 use Longman\TelegramBot\Entities\Message;
-use Longman\TelegramBot\Request;
 
 class LanguageLocalizeHandler
 {
-
     public function __construct(
         private readonly UsersService $usersService,
     )
     {
     }
 
+    /**
+     * @param Message $message
+     * @return void
+     */
     public function handle(Message $message)
     {
         $user = $this->usersService->findUserByTelegramId($message->getChat()->getId());

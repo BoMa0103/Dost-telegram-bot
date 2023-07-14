@@ -3,20 +3,18 @@
 namespace App\Telegram\Commands;
 
 use App\Telegram\Handlers\Language\LanguageLocalizeHandler;
-use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Request;
 
-class GenericCommand extends SystemCommand
+class GenericCommand extends BaseCommand
 {
     protected $name = 'generic';
 
     public function execute(): ServerResponse
     {
+        app(LanguageLocalizeHandler::class)->handle($this->getMessage());
         $message = $this->getMessage();
         $chat_id = $message->getChat()->getId();
-
-        app(LanguageLocalizeHandler::class)->handle($message);
 
         $data = [
             'chat_id' => $chat_id,

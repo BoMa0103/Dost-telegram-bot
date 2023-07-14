@@ -1,8 +1,9 @@
 <?php
 
-namespace Longman\TelegramBot\Commands\SystemCommands;
+namespace App\Telegram\Commands;
 
 use App\Telegram\Handlers\Commands\StartCommandHandler;
+use App\Telegram\Handlers\Language\LanguageLocalizeHandler;
 use Longman\TelegramBot\Entities\ServerResponse;
 
 class StartCommand extends BaseCommand
@@ -12,6 +13,7 @@ class StartCommand extends BaseCommand
 
     public function execute(): ServerResponse
     {
+        app(LanguageLocalizeHandler::class)->handle($this->getMessage());
         return app(StartCommandHandler::class)->handle($this);
     }
 }

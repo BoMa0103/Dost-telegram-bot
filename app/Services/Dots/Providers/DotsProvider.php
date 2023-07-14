@@ -2,9 +2,9 @@
 
 namespace App\Services\Dots\Providers;
 
+use App\Services\Dots\DTO\DotsOrderDTO;
 use App\Services\Http\HttpClient;
 use Illuminate\Support\Facades\Log;
-use Longman\TelegramBot\Request;
 
 class DotsProvider extends HttpClient
 {
@@ -15,6 +15,7 @@ class DotsProvider extends HttpClient
     const ORDER_URL = '/api/v2/orders';
     const ONLINE_PAYMENT_URL = '/api/v2/orders/%s/online-payment-data';
     const ORDER_INFO_URL = '/api/v2/orders/%s';
+    const ITEM_INFO = '/api/v2/items/%s';
 
 
     public function getServiceHost()
@@ -69,12 +70,17 @@ class DotsProvider extends HttpClient
         return $this->get($this->generateOrderInfoUrl($orderID), $this->getParams()) ?: [];
     }
 
-    public function makeOrder(array $data): array
+    public function makeOrder(DotsOrderDTO $orderDTO): array
     {
-        $orderData['orderFields'] = $data;
+        $orderData['orderFields'] = $orderDTO->toArray();
         $result = $this->post($this->generateOrderUrl(), $orderData, $this->getParams());
-        Log::info("Create order request info: ", $result);
+        Log::info("Create order request info: ", $result); // Disable on production
         return $result;
+    }
+
+    public function getItemInfo(string $itemId): array
+    {
+        return $this->get($this->generateItemInfoUrl($itemId), $this->getParams()) ?: [];
     }
 
     private function generateOrderUrl(): string
@@ -110,5 +116,10 @@ class DotsProvider extends HttpClient
     private function generateOrderInfoUrl(string $orderId): string
     {
         return $this->getServiceHost() . sprintf(self::ORDER_INFO_URL, $orderId);
+    }
+
+    private function generateItemInfoUrl(string $itemId): string
+    {
+        return $this->getServiceHost() . sprintf(self::ITEM_INFO, $itemId);
     }
 }

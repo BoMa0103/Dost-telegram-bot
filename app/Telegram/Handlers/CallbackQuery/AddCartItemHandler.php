@@ -5,7 +5,7 @@ namespace App\Telegram\Handlers\CallbackQuery;
 use App\Services\Cart\CartService;
 use App\Services\Dots\DotsService;
 use App\Telegram\Resolvers\TelegramMessageCartResolver;
-use App\Telegram\Senders\AddDishToCartSender;
+use App\Telegram\Senders\CartSenders\AddDishToCartSender;
 use Longman\TelegramBot\Entities\CallbackQuery;
 
 class AddCartItemHandler
@@ -25,19 +25,20 @@ class AddCartItemHandler
         $cart = $this->telegramMessageCartResolver->resolve($message);
         $data = $callbackQuery->getData();
         $data = json_decode($data, true);
-        $companyId = $cart->getCompanyId();
         $chatId = $message->getChat()->getId();
 
-        $dish = $this->dotsService->findDishById($data['id'], $companyId);
+        $dish = $this->dotsService->findDishById($data['id']);
 
         if(!$dish){
             return $this->addDishToCartSender->sendDishNotFound($chatId);
         }
 
+        $dishInfo = $dish['item'];
+
         $this->cartService->addItem($cart, [
-            'dish_id' => $dish['id'],
-            'name' => $dish['name'],
-            'price' => $dish['price'],
+            'dish_id' => $dishInfo['id'],
+            'name' => $dishInfo['name'],
+            'price' => $dishInfo['price'],
         ]);
 
         return $this->addDishToCartSender->send($chatId);

@@ -1,11 +1,10 @@
 <?php
 
-namespace Longman\TelegramBot\Commands\SystemCommands;
+namespace App\Telegram\Commands;
 
 use App\Telegram\Handlers\Language\LanguageLocalizeHandler;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\Update;
-use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 
 class BaseCommand extends SystemCommand
@@ -15,6 +14,6 @@ class BaseCommand extends SystemCommand
     )
     {
         parent::__construct($telegram, $update);
-        app(LanguageLocalizeHandler::class)->handle($this->getMessage());
+        //app(LanguageLocalizeHandler::class)->handle($this->getMessage());
     }
 }

@@ -4,37 +4,18 @@ namespace App\Services\Cart\DTO;
 
 class CartDTO
 {
-
-    private $key;
-    private $items = [];
-    private $user;
-    private $companyId;
-    private $cityId;
-    private $companyAddressId;
-    private $deliveryType;
-    private $deliveryAddressStreet;
-    private $deliveryAddressHouse;
-
     private function __construct(
-        string $key,
-        array $items,
-        CartUserDTO $user,
-        string $companyId,
-        string $cityId,
-        string $companyAddressId,
-        int $deliveryType,
-        string $deliveryAddressStreet,
-        string $deliveryAddressHouse,
-    ) {
-        $this->key = $key;
-        $this->items = $items;
-        $this->user = $user;
-        $this->companyId = $companyId;
-        $this->cityId = $cityId;
-        $this->companyAddressId = $companyAddressId;
-        $this->deliveryType = $deliveryType;
-        $this->deliveryAddressStreet = $deliveryAddressStreet;
-        $this->deliveryAddressHouse = $deliveryAddressHouse;
+        private string $key,
+        private array $items,
+        private CartUserDTO $user,
+        private string $companyId,
+        private string $cityId,
+        private string $companyAddressId,
+        private int $deliveryType,
+        private string $deliveryAddressStreet,
+        private string $deliveryAddressHouse,
+    )
+    {
     }
 
     public static function fromArray(array $data): CartDTO
@@ -125,7 +106,7 @@ class CartDTO
         $this->companyId = ' ';
     }
 
-    public function clearCompanyAddress(): void
+    public function clearCompanyAddressId(): void
     {
         $this->companyAddressId = ' ';
     }
